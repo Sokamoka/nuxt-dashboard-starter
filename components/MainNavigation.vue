@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <nav>
+  <nav class="flex gap-5 bg-slate-200 p-5">
     <NuxtLink to="/" >Index</NuxtLink>
     <AuthState v-slot="{ loggedIn, clear }">
       <NuxtLink v-if="loggedIn" to="/dashboard" >Dashboard</NuxtLink>

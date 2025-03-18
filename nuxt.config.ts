@@ -5,7 +5,9 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   devtools: { enabled: true },
-  modules: ['nuxt-auth-utils'],
+  modules: ['nuxt-auth-utils', '@nuxt/ui'],
+
+  css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
     seesion: {
