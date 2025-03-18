@@ -1,6 +1,12 @@
-# Nuxt Minimal Starter
+# Nuxt Dashboard Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Features
+
+- [ ] Nuxt/ui
+- [ ] Tailwindcss
+- [x] atinux [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils)
+- [ ] [nuxt-authorization](https://github.com/Barbapapazes/nuxt-authorization)
+
 
 ## Setup
 
