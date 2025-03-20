@@ -4,16 +4,22 @@ definePageMeta({
   pageRoles: ["ADMIN", "EDITOR"],
 });
 
-const { user } = useUserSession();
+const { user, session, clear } = useUserSession();
 
 // async function logout() {
 //   await clearSession()
 //   await navigateTo('/login')
 // }
 
-const { data: users } = await useAsyncData("users", () =>
+const { data: users, error } = await useAsyncData("users", () =>
   useRequestFetch()("/api/users")
 );
+
+console.log(error.value);
+if (error.value?.statusCode === 401) {
+  await clear();
+  navigateTo("/login");
+}
 </script>
 
 <template>
@@ -26,5 +32,7 @@ const { data: users } = await useAsyncData("users", () =>
         {{ name }}
       </li>
     </ul>
+
+    <pre>{{ session }}</pre>
   </div>
 </template>

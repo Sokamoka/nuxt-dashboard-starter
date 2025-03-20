@@ -36,6 +36,12 @@ export async function findUserById(id: string) {
   return users.find((user) => user.id === id);
 }
 
+export async function insertOne(payload: Partial<User>) {
+  const { name = '', email ='', password =''} = payload;
+  const id = (users.length +1).toString();
+  return users.push({id, name, email, password, roles: ["EDITOR"],});
+}
+
 // export async function isAdmin(user?: User) {
 //   return user && user.roles.includes("ADMIN");
 // }

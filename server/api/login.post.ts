@@ -2,6 +2,7 @@ import { findUserByEmail } from "~/shared/lib/users";
 
 export default defineEventHandler(async (event) => {
   // const { email, password } = await readValidatedBody(event, bodySchema.parse)
+  const config = useRuntimeConfig(event)
   const { email, password } = await readBody(event);
 
   const userWithPassword = await findUserByEmail(email);
@@ -20,38 +21,17 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  await setUserSession(event, {
-    user: {
-      name: userWithPassword.name,
-      role: userWithPassword.roles[0],
+  await setUserSession(
+    event,
+    {
+      user: {
+        name: userWithPassword.name,
+        role: userWithPassword.roles[0],
+      },
     },
-  });
+    {
+      maxAge: config.seesion.maxAge,
+    }
+  );
   return { success: true };
-
-  // if (email === "admin@admin.com" && password === "iamtheadmin") {
-  //   // set the user session in the cookie
-  //   // this server util is auto-imported by the auth-utils module
-  //   await setUserSession(event, {
-  //     user: {
-  //       name: "John Doe",
-  //       role: "admin",
-  //     },
-  //   });
-  //   return { success: true };
-  // }
-  // if (email === "editor@editor.com" && password === "editor") {
-  //   // set the user session in the cookie
-  //   // this server util is auto-imported by the auth-utils module
-  //   await setUserSession(event, {
-  //     user: {
-  //       name: "User John Doe",
-  //       role: "editor",
-  //     },
-  //   });
-  //   return { success: true };
-  // }
-  // throw createError({
-  //   statusCode: 401,
-  //   message: "Bad credentials",
-  // });
 });

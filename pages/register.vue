@@ -1,5 +1,15 @@
 <script setup>
+import * as v from "valibot";
+// import type { FormSubmitEvent } from '@nuxt/ui'
+
+const schema = v.object({
+  name: v.pipe(v.string(), v.minLength(2, "Must be at least 2 characters")),
+  email: v.pipe(v.string(), v.email("Invalid email")),
+  password: v.pipe(v.string(), v.minLength(4, "Must be at least 4 characters")),
+});
+
 const credentials = reactive({
+  name: "",
   email: "",
   password: "",
 });
@@ -18,12 +28,37 @@ async function register() {
 </script>
 
 <template>
-  <div>
-    Register
-    <form @submit.prevent="register">
-      <input v-model="credentials.email" type="email" placeholder="Email">
-      <input v-model="credentials.password" type="password" placeholder="Password">
-      <button type="submit">register</button>
-    </form>
+  <div class="p-8">
+    <UCard class="max-w-80 m-auto">
+      <template #header>
+        <h1 class="text-xl font-bold">Sign up</h1>
+      </template>
+
+      <UForm
+        :schema="schema"
+        :state="credentials"
+        class="space-y-4"
+        @submit="register"
+      >
+        <UFormField label="Name" name="name">
+          <UInput v-model="credentials.name" size="xl" class="w-full" />
+        </UFormField>
+
+        <UFormField label="Email" name="email">
+          <UInput v-model="credentials.email" size="xl" class="w-full" />
+        </UFormField>
+
+        <UFormField label="Password" name="password">
+          <UInput
+            v-model="credentials.password"
+            size="xl"
+            type="password"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UButton type="submit" size="xl"> Register </UButton>
+      </UForm>
+    </UCard>
   </div>
 </template>

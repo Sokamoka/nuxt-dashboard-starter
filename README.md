@@ -2,8 +2,8 @@
 
 ## Features
 
-- [ ] Nuxt/ui
-- [ ] Tailwindcss
+- [x] Nuxt/ui
+- [x] Tailwindcss
 - [x] atinux [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils)
 - [ ] [nuxt-authorization](https://github.com/Barbapapazes/nuxt-authorization)
 
