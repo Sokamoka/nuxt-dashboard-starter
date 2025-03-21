@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     seesion: {
-      maxAge: 60
+      maxAge: 60 * 60
     }
   }
 })

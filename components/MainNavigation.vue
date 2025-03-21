@@ -1,8 +1,6 @@
 <script setup>
 const { loggedIn, user, clear } = useUserSession();
 
-console.log(loggedIn.value);
-
 const items = computed(() => [
   [
     {
@@ -23,11 +21,12 @@ const items = computed(() => [
             children: [
               {
                 label: "Settings",
-                icon: "i-lucide-box",
+                icon: "i-lucide-settings",
+                to: "/settings/profile",
               },
               {
                 label: "Log out",
-                icon: "i-lucide-box",
+                icon: "i-lucide-log-out",
                 onSelect: async () => {
                   await clear();
                   navigateTo("/login");
@@ -51,7 +50,7 @@ const items = computed(() => [
 </script>
 
 <template>
-  <nav class="px-4 border-b border-slate-300">
+  <header class="px-4 border-b border-slate-300">
     <UNavigationMenu
       color="slate"
       content-orientation="vertical"
@@ -62,7 +61,7 @@ const items = computed(() => [
         <UAvatar :alt="user?.name" size="xs" />
       </template>
     </UNavigationMenu>
-  </nav>
+  </header>
   <!-- <nav class="flex gap-5 bg-slate-200 p-5">
     <NuxtLink to="/" >Index</NuxtLink>
     <AuthState v-slot="{ loggedIn, clear }">
