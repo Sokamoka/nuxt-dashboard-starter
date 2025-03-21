@@ -51,15 +51,15 @@ const items = computed(() => [
 </script>
 
 <template>
-  <nav class="px-4 border-b border-neutral-200">
+  <nav class="px-4 border-b border-slate-300">
     <UNavigationMenu
-      color="neutral"
+      color="slate"
       content-orientation="vertical"
       :items="items"
       class="w-full"
     >
       <template #user-leading>
-        <UAvatar :alt="user?.name" size="md" />
+        <UAvatar :alt="user?.name" size="xs" />
       </template>
     </UNavigationMenu>
   </nav>

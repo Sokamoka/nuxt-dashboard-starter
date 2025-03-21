@@ -2,6 +2,10 @@
 import * as v from "valibot";
 // import type { FormSubmitEvent } from '@nuxt/ui'
 
+definePageMeta({
+  layout: "main",
+});
+
 const schema = v.object({
   name: v.pipe(v.string(), v.minLength(2, "Must be at least 2 characters")),
   email: v.pipe(v.string(), v.email("Invalid email")),

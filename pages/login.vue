@@ -2,6 +2,10 @@
 import * as v from "valibot";
 // import type { FormSubmitEvent } from '@nuxt/ui'
 
+definePageMeta({
+  layout: "main",
+});
+
 const schema = v.object({
   email: v.pipe(v.string(), v.email("Invalid email")),
   password: v.pipe(v.string(), v.minLength(4, "Must be at least 4 characters")),
@@ -41,9 +45,9 @@ async function login() {
         class="space-y-4"
         @submit="login"
       >
-        <ul>
-          <li>admin</li>
-          <li>editor</li>
+        <ul class="text-xs">
+          <li>admin@admin.com / admin</li>
+          <li>editor@editor.com / editor</li>
         </ul>
 
         <UFormField label="Email" name="email">
