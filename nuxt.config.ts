@@ -9,9 +9,9 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  runtimeConfig: {
-    seesion: {
-      maxAge: 60 * 60
-    }
-  }
+  // runtimeConfig: {
+  //   session: {
+  //     maxAge: 60 * 60
+  //   }
+  // }
 })

@@ -44,19 +44,19 @@ const items = ref([
           label: 'defineShortcuts',
           icon: 'i-lucide-file-text',
           description: 'Define shortcuts for your application.',
-          to: '/composables/define-shortcuts'
+          // to: '/composables/define-shortcuts'
         },
         {
           label: 'useOverlay',
           icon: 'i-lucide-file-text',
           description: 'Display a modal/slideover within your application.',
-          to: '/composables/use-overlay'
+          // to: '/composables/use-overlay'
         },
         {
           label: 'useToast',
           icon: 'i-lucide-file-text',
           description: 'Display a toast within your application.',
-          to: '/composables/use-toast'
+          // to: '/composables/use-toast'
         }
       ]
     },
@@ -71,37 +71,37 @@ const items = ref([
           label: 'Link',
           icon: 'i-lucide-file-text',
           description: 'Use NuxtLink with superpowers.',
-          to: '/components/link'
+          // to: '/components/link'
         },
         {
           label: 'Modal',
           icon: 'i-lucide-file-text',
           description: 'Display a modal within your application.',
-          to: '/components/modal'
+          // to: '/components/modal'
         },
         {
           label: 'NavigationMenu',
           icon: 'i-lucide-file-text',
           description: 'Display a list of links.',
-          to: '/components/navigation-menu'
+          // to: '/components/navigation-menu'
         },
         {
           label: 'Pagination',
           icon: 'i-lucide-file-text',
           description: 'Display a list of pages.',
-          to: '/components/pagination'
+          // to: '/components/pagination'
         },
         {
           label: 'Popover',
           icon: 'i-lucide-file-text',
           description: 'Display a non-modal dialog that floats around a trigger element.',
-          to: '/components/popover'
+          // to: '/components/popover'
         },
         {
           label: 'Progress',
           icon: 'i-lucide-file-text',
           description: 'Show a horizontal bar to indicate task progression.',
-          to: '/components/progress'
+          // to: '/components/progress'
         }
       ]
     }
@@ -125,7 +125,7 @@ const items = ref([
 
 <template>
   <aside class="bg-slate-100 border-e border-slate-300 hidden md:block">
-    <h2 class="py-4 px-2 font-bold">Dashboard <sup><UBadge color="primary" variant="outline" size="xs">V1.0</UBadge></sup></h2>
+    <h2 class="py-4 px-2 font-bold">Dashboard Starter <sup><UBadge color="primary" variant="outline" size="xs">V1.0</UBadge></sup></h2>
     <UNavigationMenu orientation="vertical" :items="items" class="data-[orientation=vertical]:w-56" />
   </aside>
 </template>

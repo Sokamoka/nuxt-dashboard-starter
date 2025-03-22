@@ -2,7 +2,7 @@ import { findUserByEmail } from "~/shared/lib/users";
 
 export default defineEventHandler(async (event) => {
   // const { email, password } = await readValidatedBody(event, bodySchema.parse)
-  const config = useRuntimeConfig(event)
+  // const config = useRuntimeConfig(event)
   const { email, password } = await readBody(event);
 
   const userWithPassword = await findUserByEmail(email);
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
       },
     },
     {
-      maxAge: config.seesion.maxAge,
+      maxAge: 60 * 60,
     }
   );
   return { success: true };

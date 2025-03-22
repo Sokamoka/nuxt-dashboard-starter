@@ -4,6 +4,9 @@ const { loggedIn, user, clear } = useUserSession();
 const items = computed(() => [
   [
     {
+      icon: "i-lucide-menu",
+    },
+    {
       label: "Index",
       to: "/",
     },
@@ -50,7 +53,8 @@ const items = computed(() => [
 </script>
 
 <template>
-  <header class="px-4 border-b border-slate-300">
+  <header class="flex px-4 border-b border-slate-300">
+    <!-- <UButton icon="i-lucide-search" size="md" color="primary" variant="ghost" /> -->
     <UNavigationMenu
       color="slate"
       content-orientation="vertical"
