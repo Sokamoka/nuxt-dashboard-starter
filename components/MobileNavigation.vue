@@ -1,11 +1,16 @@
 <script lang="ts" setup>
-const open = ref(true);
+const open = defineModel<boolean>()
 </script>
 
 <template>
-  <USlideover v-model:open="open" side="left" title="Mobile Navigation" description="Sidebar for mobile navigation" >
+  <USlideover
+    v-model:open="open"
+    side="left"
+    title="Mobile Navigation"
+    description="Sidebar for mobile navigation"
+  >
     <template #content>
-      <SidebarNavigation />
+      <SidebarNavigation class="h-full" />
     </template>
   </USlideover>
 </template>

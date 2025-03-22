@@ -124,7 +124,7 @@ const items = ref([
 </script>
 
 <template>
-  <aside class="bg-slate-100 border-e border-slate-300 w-56">
+  <aside class="bg-slate-100">
     <h2 class="py-4 px-2 font-bold">Dashboard Starter <sup><UBadge color="primary" variant="outline" size="xs">V1.0</UBadge></sup></h2>
     <UNavigationMenu orientation="vertical" :items="items" class="data-[orientation=vertical]:w-full" />
   </aside>

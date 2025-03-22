@@ -3,8 +3,9 @@ const { loggedIn, user, clear } = useUserSession();
 const isSidebarVisible = useSidebarVisibility();
 const isMobileSidebarVisible = useMobileSidebarVisibility();
 
-
 const isLargeThenMd = useMediaQuery("(min-width: 768px)", { ssrWidth: 768 });
+
+whenever(isLargeThenMd, () => (isMobileSidebarVisible.value = false));
 
 const items = computed(() => [
   [
