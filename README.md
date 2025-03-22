@@ -4,8 +4,10 @@
 
 - [x] Nuxt/ui
 - [x] Tailwindcss
+- [x] Valibot for Schema validation
+- [x] VueUse
 - [x] atinux [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils)
-- [ ] [nuxt-authorization](https://github.com/Barbapapazes/nuxt-authorization)
+- [ ] User roles with [nuxt-authorization](https://github.com/Barbapapazes/nuxt-authorization)
 
 
 ## Setup

@@ -1,10 +1,22 @@
 <script setup>
 const { loggedIn, user, clear } = useUserSession();
+const isSidebarVisible = useSidebarVisibility();
+const isMobileSidebarVisible = useMobileSidebarVisibility();
+
+
+const isLargeThenMd = useMediaQuery("(min-width: 768px)", { ssrWidth: 768 });
 
 const items = computed(() => [
   [
     {
       icon: "i-lucide-menu",
+      onSelect: async () => {
+        if (isLargeThenMd.value) {
+          isSidebarVisible.value = !isSidebarVisible.value;
+          return;
+        }
+        isMobileSidebarVisible.value = !isMobileSidebarVisible.value;
+      },
     },
     {
       label: "Index",
@@ -53,8 +65,7 @@ const items = computed(() => [
 </script>
 
 <template>
-  <header class="flex px-4 border-b border-slate-300">
-    <!-- <UButton icon="i-lucide-search" size="md" color="primary" variant="ghost" /> -->
+  <header class="flex px-2 border-b border-slate-300">
     <UNavigationMenu
       color="slate"
       content-orientation="vertical"
