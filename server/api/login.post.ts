@@ -25,6 +25,7 @@ export default defineEventHandler(async (event) => {
     event,
     {
       user: {
+        id: userWithPassword.id,
         name: userWithPassword.name,
         role: userWithPassword.roles[0],
       },

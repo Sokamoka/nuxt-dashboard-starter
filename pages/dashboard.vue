@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { listUsers } from '~/shared/abilities';
+
 definePageMeta({
   middleware: ["authenticated"],
   pageRoles: ["ADMIN", "EDITOR"],
@@ -26,6 +28,15 @@ if (error.value?.statusCode === 401) {
   <div>
     <h1>Welcome {{ user?.name }}</h1>
     <!-- <button @click="logout">Logout</button> -->
+
+    <Can
+      :ability="[listUsers]"
+      :args="[['ADMIN']]"
+      as="p"
+      data-attrs="create-and-edit-product"
+    >
+      I can edit a product and create a new category.
+    </Can>
 
     <ul>
       <li v-for="{ name, id } in users" :key="id">

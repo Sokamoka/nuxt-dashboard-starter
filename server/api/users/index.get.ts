@@ -1,7 +1,10 @@
+import { listUsers } from "~/shared/abilities"
 import { findAllUsers, type User } from "~/shared/lib/users"
 
 export default eventHandler(async (event) => {
-  const { user } = await requireUserSession(event)
+  // const { user } = await requireUserSession(event)
+
+  await authorize(event, listUsers, ['ADMIN'])
 
   // console.log(user)
 

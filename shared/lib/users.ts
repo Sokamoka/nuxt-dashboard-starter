@@ -42,6 +42,12 @@ export async function insertOne(payload: Partial<User>) {
   return users.push({id, name, email, password, roles: ["EDITOR"],});
 }
 
+export async function updateOne(id: string, payload: Partial<User>) {
+  const user: User | undefined = await findUserById(id);
+  Object.assign(user || {}, payload)
+  return user;
+}
+
 // export async function isAdmin(user?: User) {
 //   return user && user.roles.includes("ADMIN");
 // }

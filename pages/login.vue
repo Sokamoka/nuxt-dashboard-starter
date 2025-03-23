@@ -11,13 +11,14 @@ const schema = v.object({
   password: v.pipe(v.string(), v.minLength(4, "Must be at least 4 characters")),
 });
 
-// type Schema = v.InferOutput<typeof schema>
-
-const { fetch: refreshSession } = useUserSession();
 const credentials = reactive({
   email: "",
   password: "",
 });
+// type Schema = v.InferOutput<typeof schema>
+
+const { fetch: refreshSession } = useUserSession();
+
 async function login() {
   $fetch("/api/login", {
     method: "POST",

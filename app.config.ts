@@ -7,7 +7,7 @@ export default defineAppConfig({
       variants: {
         side: {
           left: {
-            content: 'left-0 inset-y-0 w-full max-w-56',
+            content: 'left-0 inset-y-0 w-56',
           },
         },
       },
