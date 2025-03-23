@@ -3,7 +3,7 @@ import { listUsers } from '~/shared/abilities';
 
 definePageMeta({
   middleware: ["authenticated"],
-  pageRoles: ["ADMIN", "EDITOR"],
+  pageRoles: [Roles.Admin, Roles.Editor],
 });
 
 const { user, session, clear } = useUserSession();
@@ -27,11 +27,10 @@ if (error.value?.statusCode === 401) {
 <template>
   <div>
     <h1>Welcome {{ user?.name }}</h1>
-    <!-- <button @click="logout">Logout</button> -->
 
     <Can
       :ability="[listUsers]"
-      :args="[['ADMIN']]"
+      :args="[[Roles.Admin]]"
       as="p"
       data-attrs="create-and-edit-product"
     >

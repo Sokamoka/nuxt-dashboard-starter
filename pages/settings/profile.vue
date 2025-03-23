@@ -35,7 +35,7 @@ function onUpdete() {
 <template>
   <div class="flex-1">
     <div>
-      <pre>{{ userData }}</pre>
+      <pre class="overflow-hidden text-xs max-w-96">{{ userData }}</pre>
       <UForm
         :schema="schema"
         :state="credentials"

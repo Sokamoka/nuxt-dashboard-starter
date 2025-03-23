@@ -1,4 +1,4 @@
-export interface User {
+export interface DBUser {
   id: string;
   email: string;
   password: string;
@@ -7,7 +7,7 @@ export interface User {
 }
 
 // Fake users data
-const users: User[] = [
+const users: DBUser[] = [
   {
     id: "41dbc5f7-9a4e-42e6-832b-1d3dd8c7c4b6",
     email: "admin@admin.com",
@@ -36,18 +36,14 @@ export async function findUserById(id: string) {
   return users.find((user) => user.id === id);
 }
 
-export async function insertOne(payload: Partial<User>) {
+export async function insertOne(payload: Partial<DBUser>) {
   const { name = '', email ='', password =''} = payload;
   const id = (users.length +1).toString();
   return users.push({id, name, email, password, roles: ["EDITOR"],});
 }
 
-export async function updateOne(id: string, payload: Partial<User>) {
-  const user: User | undefined = await findUserById(id);
+export async function updateOne(id: string, payload: Partial<DBUser>) {
+  const user: DBUser | undefined = await findUserById(id);
   Object.assign(user || {}, payload)
   return user;
 }
-
-// export async function isAdmin(user?: User) {
-//   return user && user.roles.includes("ADMIN");
-// }

@@ -1,9 +1,18 @@
+import * as v from "valibot";
+import { useValidatedBody } from "~/composables/useValidateBody";
 import { findUserByEmail } from "~/shared/lib/users";
 
 export default defineEventHandler(async (event) => {
-  // const { email, password } = await readValidatedBody(event, bodySchema.parse)
-  // const config = useRuntimeConfig(event)
-  const { email, password } = await readBody(event);
+   const { email, password } = await useValidatedBody(
+      event,
+      v.object({
+        email: v.pipe(v.string(), v.email("Invalid email")),
+        password: v.pipe(
+          v.string(),
+          v.minLength(4, "Must be at least 4 characters")
+        ),
+      })
+    );
 
   const userWithPassword = await findUserByEmail(email);
   if (!userWithPassword) {
@@ -27,7 +36,7 @@ export default defineEventHandler(async (event) => {
       user: {
         id: userWithPassword.id,
         name: userWithPassword.name,
-        role: userWithPassword.roles[0],
+        roles: userWithPassword.roles,
       },
     },
     {

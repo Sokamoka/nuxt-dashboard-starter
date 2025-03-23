@@ -1,9 +1,10 @@
+import type { Roles } from "."
+
 declare module '#auth-utils' {
   interface User {
     id: number
-    login: string
     name: string
-    role: string
+    roles: Roles[]
   }
 }
 export {}

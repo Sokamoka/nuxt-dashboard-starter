@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to) => {
   const { loggedIn, user } = useUserSession();
-  if (!to.meta?.pageRoles.includes(user.value?.role)) return navigateTo("/login");
+  if (!isAllowed(to.meta?.pageRoles, user.value?.roles)) return navigateTo("/login");
 
   // redirect the user to the login screen if they're not authenticated
   if (!loggedIn.value) {
