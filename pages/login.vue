@@ -20,7 +20,7 @@ const credentials = reactive({
 const { fetch: refreshSession } = useUserSession();
 
 async function login() {
-  $fetch("/api/login", {
+  $fetch("/api/auth/login", {
     method: "POST",
     body: credentials,
   })

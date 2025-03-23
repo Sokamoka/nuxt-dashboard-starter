@@ -6,6 +6,7 @@ const schema = v.object({
   email: v.pipe(v.string(), v.email("Invalid email")),
 });
 
+const { fetch } = useUserSession();
 const toast = useToast()
 
 const { data: userData } = await useFetch(`/api/settings/profile`);
@@ -21,12 +22,12 @@ function onUpdete() {
     body: credentials,
   })
     .then(async () => {
-      // await navigateTo("/dashboard");
       toast.add({
         title: "Success",
         description: "Your action was completed successfully.",
         color: "success",
       });
+      fetch();
     })
     .catch(() => alert("Bad credentials"));
 }

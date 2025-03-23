@@ -19,7 +19,7 @@ const credentials = reactive({
 });
 
 async function register() {
-  $fetch("/api/register", {
+  $fetch("/api/aoth/register", {
     method: "POST",
     body: credentials,
   })
