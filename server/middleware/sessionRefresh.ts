@@ -10,9 +10,9 @@ export default defineEventHandler(async (event) => {
       {
         ...session,
       },
-      {
-        maxAge: 60*60,
-      }
+      // {
+      //   maxAge: 60*60,
+      // }
     );
   }
 });

@@ -25,7 +25,7 @@ async function register() {
   })
     .then(async () => {
       // Refresh the session on client-side and redirect to the home page
-      await navigateTo("/dashboard");
+      await navigateTo("/");
     })
     .catch(() => alert("Bad credentials"));
 }

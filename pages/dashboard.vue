@@ -44,5 +44,7 @@ if (error.value?.statusCode === 401) {
     </ul>
 
     <pre>{{ session }}</pre>
+
+    <UTable :data="users" class="flex-1" />
   </div>
 </template>

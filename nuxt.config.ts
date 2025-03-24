@@ -9,9 +9,13 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
+  devServer: {
+    port: 3030,
+  },
+
   // runtimeConfig: {
   //   session: {
-  //     maxAge: 60 * 60
+  //     maxAge: 0,
   //   }
   // }
 });
