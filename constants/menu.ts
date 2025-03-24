@@ -26,7 +26,7 @@ export function sidebarMenu(isAdminUser: boolean) {
             {
               label: "Users",
               type: "label",
-              badge: 'Only Admin',
+              badge: 'Admin Only',
               disabled: true,
             },
             {

@@ -4,7 +4,7 @@ import type { DBUser } from '~/shared/lib/users';
 
 definePageMeta({
   middleware: ["authenticated"],
-  pageRoles: [Roles.Admin, Roles.Editor],
+  pageRoles: [Roles.Admin],
 });
 
 const { user, session, clear } = useUserSession();
@@ -19,7 +19,7 @@ const { user, session, clear } = useUserSession();
 // const { $safeFetch } = useNuxtApp()
 // const { data: users } = await useAsyncData('users', () => $safeFetch('/api/users'))
 
-const { data: users, error } = await useAsyncData("users", () =>
+const { data: users, error } = await useAsyncData<DBUser[]>("users", () =>
   useRequestFetch()("/api/users")
 );
 
