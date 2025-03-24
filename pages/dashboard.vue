@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { listUsers } from '~/shared/abilities';
+import type { DBUser } from '~/shared/lib/users';
 
 definePageMeta({
   middleware: ["authenticated"],
@@ -12,6 +13,11 @@ const { user, session, clear } = useUserSession();
 //   await clearSession()
 //   await navigateTo('/login')
 // }
+
+// const { data: users } = await useSafeFetch<DBUser>('/api/users')
+
+// const { $safeFetch } = useNuxtApp()
+// const { data: users } = await useAsyncData('users', () => $safeFetch('/api/users'))
 
 const { data: users, error } = await useAsyncData("users", () =>
   useRequestFetch()("/api/users")

@@ -42,7 +42,7 @@ export function sidebarMenu(isAdminUser: boolean) {
       },
       {
         label: "Tasks",
-        icon: "i-lucide-database",
+        icon: "i-lucide-calendar-check-2",
       },
       {
         label: "Composables",

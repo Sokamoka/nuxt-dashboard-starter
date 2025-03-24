@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import * as v from "valibot";
+import type { DBUser } from "~/shared/lib/users";
 
 const schema = v.object({
   name: v.pipe(v.string()),
@@ -9,7 +10,7 @@ const schema = v.object({
 const { fetch } = useUserSession();
 const toast = useToast()
 
-const { data: userData } = await useFetch(`/api/settings/profile`);
+const { data: userData } = await useFetch<DBUser>('/api/settings/profile');
 
 const credentials = reactive({
   name: userData.value?.name ?? "",
