@@ -46,6 +46,11 @@ export function sidebarMenu(isAdminUser: boolean) {
         to: "/tasks",
       },
       {
+        label: "WebSocket",
+        icon: "i-lucide-calendar-check-2",
+        to: "/ws",
+      },
+      {
         label: "Composables",
         icon: "i-lucide-database",
         children: [

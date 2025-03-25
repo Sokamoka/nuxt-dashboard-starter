@@ -11,7 +11,14 @@ export default defineNuxtConfig({
 
   devServer: {
     port: 3030,
+    host: '127.0.0.1',
   },
+
+  nitro: {
+    experimental: {
+      websocket: true
+    }
+  }
 
   // runtimeConfig: {
   //   session: {
