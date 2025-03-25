@@ -19,11 +19,7 @@ const title = computed(() =>
 
 <template>
   <div class="h-full">
-    <div>
-      <h2 class="text-2xl font-bold tracking-tight">{{ title?.label }}</h2>
-    </div>
-
-    <USeparator class="my-4" />
+    <MainTitle :title="title?.label || ''" />
 
     <div class="flex space-x-12">
       <UNavigationMenu

@@ -9,6 +9,6 @@ const { user } = useUserSession();
 
 <template>
   <div>
-    <h1 class="text-2xl font-bold tracking-tight">Welcome {{ user?.name }}</h1>
+    <MainTitle :title="`Welcome ${user?.name}`" />
   </div>
 </template>

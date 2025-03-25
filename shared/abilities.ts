@@ -10,3 +10,5 @@ export const listProfile = defineAbility(() => true);
 // export const editProfile = defineAbility((user: User, product: Product) => {
 //   return user.id === product.ownerId
 // })
+
+export const listTasks = defineAbility(() => true);

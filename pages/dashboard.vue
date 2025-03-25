@@ -7,7 +7,7 @@ definePageMeta({
   pageRoles: [Roles.Admin],
 });
 
-const { user, session, clear } = useUserSession();
+const { user, session } = useUserSession();
 
 // async function logout() {
 //   await clearSession()
@@ -33,6 +33,7 @@ const { data: users } = await useValidateFetch<DBUser[]>('/api/users')
 
 <template>
   <div>
+    <MainTitle title="User Administration" />
     <h1>Welcome {{ user?.name }}</h1>
 
     <Can
