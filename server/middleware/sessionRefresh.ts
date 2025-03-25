@@ -1,18 +1,17 @@
-export default defineEventHandler(async (event) => {
-  // const config = useRuntimeConfig(event)
+export default defineEventHandler(async () => {
   // try {
-  const session = await getUserSession(event);
-  console.log("session:");
-  console.log(session);
-  if (session.user) {
-    await replaceUserSession(
-      event,
-      {
-        ...session,
-      },
-      // {
-      //   maxAge: 60*60,
-      // }
-    );
-  }
+  // const session = await getUserSession(event);
+  // console.log("session:");
+  // console.log(session);
+  // if (session.user) {
+  //   await replaceUserSession(
+  //     event,
+  //     {
+  //       ...session,
+  //     },
+  //     {
+  //       maxAge: 60*60,
+  //     }
+  //   );
+  // }
 });

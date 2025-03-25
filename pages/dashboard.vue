@@ -14,20 +14,21 @@ const { user, session, clear } = useUserSession();
 //   await navigateTo('/login')
 // }
 
+const { data: users } = await useValidateFetch<DBUser[]>('/api/users')
 // const { data: users } = await useSafeFetch<DBUser>('/api/users')
 
 // const { $safeFetch } = useNuxtApp()
 // const { data: users } = await useAsyncData('users', () => $safeFetch('/api/users'))
 
-const { data: users, error } = await useAsyncData<DBUser[]>("users", () =>
-  useRequestFetch()("/api/users")
-);
+// const { data: users, error } = await useAsyncData<DBUser[]>("users", () =>
+//   useRequestFetch()("/api/users")
+// );
 
-console.log(error.value);
-if (error.value?.statusCode === 401) {
-  await clear();
-  navigateTo("/login");
-}
+// console.log(error.value);
+// if (error.value?.statusCode === 401) {
+//   await clear();
+//   navigateTo("/login");
+// }
 </script>
 
 <template>

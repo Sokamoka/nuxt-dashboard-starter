@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
       },
     },
     // {
-    //   maxAge: 60 * 60,
+    //   maxAge: 30,
     // }
   );
   return { success: true };

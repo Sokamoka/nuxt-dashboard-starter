@@ -10,7 +10,8 @@ const schema = v.object({
 const { fetch } = useUserSession();
 const toast = useToast()
 
-const { data: userData } = await useFetch<DBUser>('/api/settings/profile');
+const { data: userData } = await useValidateFetch<DBUser>('/api/settings/profile');
+// const { data: userData } = await useFetch<DBUser>('/api/settings/profile');
 
 const credentials = reactive({
   name: userData.value?.name ?? "",

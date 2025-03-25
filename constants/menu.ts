@@ -26,7 +26,7 @@ export function sidebarMenu(isAdminUser: boolean) {
             {
               label: "Users",
               type: "label",
-              badge: 'Admin Only',
+              badge: "Admin Only",
               disabled: true,
             },
             {
@@ -43,6 +43,7 @@ export function sidebarMenu(isAdminUser: boolean) {
       {
         label: "Tasks",
         icon: "i-lucide-calendar-check-2",
+        to: "/tasks",
       },
       {
         label: "Composables",
