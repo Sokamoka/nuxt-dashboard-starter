@@ -25,8 +25,5 @@
     "@vueuse/core": "^13.0.0",
     "@vueuse/nuxt": "^13.0.0",
     "eslint": "^9.22.0"
-  },
-  "resolutions": {
-    "h3": "npm:h3-nightly@latest"
   }
 }

@@ -46,8 +46,8 @@ export function sidebarMenu(isAdminUser: boolean) {
         to: "/tasks",
       },
       {
-        label: "WebSocket",
-        icon: "i-lucide-calendar-check-2",
+        label: "Chat",
+        icon: "i-lucide-bot-message-square",
         to: "/ws",
       },
       {

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { RouteLocation } from 'vue-router';
+
 const route = useRoute();
 
 const items = ref([
@@ -27,7 +29,7 @@ const title = computed(() =>
         :items="items"
         class="data-[orientation=vertical]:w-48"
       />
-      <NuxtPage :page-key="(route) => route.fullPath" />
+      <NuxtPage :page-key="(route: RouteLocation) => route.fullPath" />
     </div>
   </div>
 </template>
