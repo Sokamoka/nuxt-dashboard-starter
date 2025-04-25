@@ -1,5 +1,5 @@
 export interface DBUser {
-  id: string;
+  id: string | number;
   email: string;
   password: string;
   name: string;

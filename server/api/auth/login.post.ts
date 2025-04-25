@@ -39,9 +39,9 @@ export default defineEventHandler(async (event) => {
         roles: userWithPassword.roles,
       },
     },
-    // {
-    //   maxAge: 30,
-    // }
+    {
+      maxAge: 3600,
+    }
   );
   return { success: true };
 });

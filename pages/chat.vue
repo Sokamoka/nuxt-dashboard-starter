@@ -1,7 +1,7 @@
 <script setup>
 const messageInput = ref("");
 const messages = ref([]);
-const { status, data, send, open, close } = useWebSocket('/_ws', {
+const { status, data, send, open, close } = useWebSocket('/chat', {
   immediate: false,
 });
 

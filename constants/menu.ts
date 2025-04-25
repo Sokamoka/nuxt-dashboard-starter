@@ -48,7 +48,7 @@ export function sidebarMenu(isAdminUser: boolean) {
       {
         label: "Chat",
         icon: "i-lucide-bot-message-square",
-        to: "/ws",
+        to: "/chat",
       },
       {
         label: "Composables",
