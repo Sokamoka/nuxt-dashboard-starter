@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { listUsers } from '~/shared/abilities';
-import type { DBUser } from '~/shared/lib/users';
+import { listUsers } from "~/shared/abilities";
+import type { DBUser } from "~/shared/lib/users";
+
+const UCheckbox = resolveComponent("UCheckbox");
+const UButton = resolveComponent("UButton");
 
 definePageMeta({
   middleware: ["authenticated"],
   pageRoles: [Roles.Admin],
 });
 
-const { user, session } = useUserSession();
+const { user } = useUserSession();
 
-// async function logout() {
-//   await clearSession()
-//   await navigateTo('/login')
-// }
+const modal = useConfirmModal();
 
-const { data: users } = await useValidateFetch<DBUser[]>('/api/users')
+const { data: users } = await useValidateFetch<DBUser[]>("/api/users");
 // const { data: users } = await useSafeFetch<DBUser>('/api/users')
 
 // const { $safeFetch } = useNuxtApp()
@@ -29,6 +29,57 @@ const { data: users } = await useValidateFetch<DBUser[]>('/api/users')
 //   await clear();
 //   navigateTo("/login");
 // }
+
+const columns = [
+  {
+    id: "select",
+    header: ({ table }) =>
+      h(UCheckbox, {
+        modelValue: table.getIsSomePageRowsSelected()
+          ? "indeterminate"
+          : table.getIsAllPageRowsSelected(),
+        "onUpdate:modelValue": (value: boolean | "indeterminate") =>
+          table.toggleAllPageRowsSelected(!!value),
+        "aria-label": "Select all",
+      }),
+    cell: ({ row }) =>
+      h(UCheckbox, {
+        modelValue: row.getIsSelected(),
+        "onUpdate:modelValue": (value: boolean | "indeterminate") =>
+          row.toggleSelected(!!value),
+        "aria-label": "Select row",
+      }),
+  },
+  {
+    accessorKey: "name",
+  },
+  {
+    accessorKey: "email",
+  },
+  {
+    accessorKey: "roles",
+  },
+  {
+    accessorKey: "id",
+    header: "Delete",
+    cell: ({ row }) => {
+      console.log(row.getValue("id"));
+      return h(UButton, {
+        icon: "i-lucide-x",
+        variant: "ghost",
+        size: "xs",
+        color: "error",
+        onClick: () => onDelete(row.getValue("id")),
+      });
+    },
+  },
+];
+
+async function onDelete(id: string) {
+  const { result } = await modal.open();
+  if (!(await result)) return;
+  console.log(id);
+}
 </script>
 
 <template>
@@ -45,14 +96,15 @@ const { data: users } = await useValidateFetch<DBUser[]>('/api/users')
       I can edit a product and create a new category.
     </Can>
 
-    <ul>
+    <!-- <ul>
       <li v-for="{ name, id } in users" :key="id">
         {{ name }}
       </li>
-    </ul>
+    </ul> -->
 
-    <pre>{{ session }}</pre>
-
-    <UTable :data="users" class="flex-1" />
+    <!-- <pre>{{ session }}</pre> -->
+    <UCard :ui="{ body: 'p-0 sm:p-0' }">
+      <UTable :data="users" :columns="columns" class="flex-1" />
+    </UCard>
   </div>
 </template>
