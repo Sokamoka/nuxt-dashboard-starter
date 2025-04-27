@@ -9,7 +9,7 @@ const emit = defineEmits<{ close: [boolean] }>()
 
 <template>
   <UModal
-    :close="{ onClick: () => emit('close', false) }"
+    :close="{ class: 'hidden', onClick: () => emit('close', false) }"
     :title="title"
     :description="message"
     :dismissible="false"

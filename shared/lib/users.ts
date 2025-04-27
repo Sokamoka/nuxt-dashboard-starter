@@ -13,7 +13,7 @@ const users: DBUser[] = [
     email: "admin@admin.com",
     password: "$scrypt$n=16384,r=8,p=1$nrtcpEmdNsar4Y75xDYOhg$Rk5VCoPhe9Tg5szc/RWW9SXZVXTbzUGWqpExBwd2lNrj5gt9f3rBLT4LKuMN08S1RWJaJkLqNc4tiePWNo7P9g", // password
     name: 'Admin User',
-    roles: [Roles.Admin],
+    roles: [Roles.Admin, Roles.Editor],
   },
   {
     id: "d0065700-1707-4ad9-811b-8bbed0364318",

@@ -8,12 +8,12 @@ const { status, data, send, open, close } = useWebSocket('/chat', {
 // Only open the websocket after the page is hydrated (client-only)
 onMounted(open);
 
-if (status !== 'OPEN') open();
+// if (status !== 'OPEN') open();
 
 watch(
-  data,
+  () => JSON.parse(unref(data)),
   (d) => {
-    messages.value.push(JSON.parse(d));
+    messages.value.push(d);
   },
   {
     deep: true,
@@ -30,7 +30,7 @@ function onSendMessage() {
 <template>
   <div>
     <p>Status: {{ status }}</p>
-    <!-- <p>Data: {{ data }}</p> -->
+    <p>Data: {{ data }}</p>
     <ul>
       <li v-for="{user, message} in messages" :key="message.user">
         {{ message }} {{ user }}

@@ -5,7 +5,7 @@ export function useConfirmModal() {
 
   return overlay.create(ConfirmModal, {
     props: {
-      title: "Confirm Modal",
+      title: "Are you sure?",
       message: "",
     },
   });

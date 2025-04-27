@@ -8,12 +8,12 @@ export default defineWebSocketHandler({
     console.log("[ws] open:", peer.id);
     // const { user } = await requireUserSession(peer);
     const user = { name: "Akos", id: "1234" };
+    peer.subscribe("chat");
     peer.send({ user: user.id, message: `Welcome ${user.name}(${peer})!` });
     peer.publish("chat", {
       user: user.id,
       message: `${user.name} joined!`,
     });
-    peer.subscribe("chat");
   },
   async message(peer, message) {
     // const { user } = await requireUserSession(peer);

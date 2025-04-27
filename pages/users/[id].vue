@@ -1,44 +1,30 @@
 <script lang="ts" setup>
 import * as v from "valibot";
-import type { DBUser } from "~/shared/lib/users";
+import type { DBUser } from '~/shared/lib/users';
 
 const schema = v.object({
   name: v.pipe(v.string()),
   email: v.pipe(v.string(), v.email("Invalid email")),
 });
 
-const { fetch } = useUserSession();
-const toast = useToast()
-
 const { data: userData } = await useValidateFetch<DBUser>('/api/settings/profile');
 
 const credentials = reactive({
   name: userData.value?.name ?? "",
   email: userData.value?.email ?? "",
+  roles: userData.value?.roles ?? [],
 });
 
-function onUpdete() {
-  $fetch("/api/settings/profile", {
-    method: "POST",
-    body: credentials,
-  })
-    .then(async () => {
-      toast.add({
-        title: "Success",
-        description: "Your action was completed successfully.",
-        color: "success",
-      });
-      fetch();
-    })
-    .catch(() => alert("Bad credentials"));
-}
+function onUpdete() {}
 </script>
-
 <template>
-  <div class="flex-1">
-    <div>
-      <pre class="overflow-hidden text-xs max-w-96">{{ userData }}</pre>
-      <UForm
+  <div>
+    <MainTitle
+      title="User Administration"
+      subtitle="You can edit user"
+    />
+
+    <UForm
         :schema="schema"
         :state="credentials"
         class="space-y-4"
@@ -52,8 +38,12 @@ function onUpdete() {
           <UInput v-model="credentials.email" size="xl" class="w-full" />
         </UFormField>
 
+        <UFormField label="Email" name="email">
+          <USelect v-model="credentials.roles" :items="items" class="w-48" />
+        </UFormField>
+
+
         <UButton type="submit" size="xl"> Save </UButton>
       </UForm>
-    </div>
   </div>
 </template>
