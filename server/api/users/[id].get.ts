@@ -7,6 +7,7 @@ export default eventHandler(async (event) => {
   await authorize(event, listUsers, [Roles.Admin]);
 
   const user = await findUserById(id || "");
+  const { name, email, roles } = user || {};
 
-  return { name: user?.name, email: user?.email } as Partial<DBUser>;
+  return { name, email, roles } as Partial<DBUser>;
 });

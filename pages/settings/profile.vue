@@ -3,7 +3,10 @@ import * as v from "valibot";
 import type { DBUser } from "~/shared/lib/users";
 
 const schema = v.object({
-  name: v.pipe(v.string()),
+  name: v.pipe(
+    v.string(),
+    v.minLength(2, "The name must be 2 or more characters long.")
+  ),
   email: v.pipe(v.string(), v.email("Invalid email")),
 });
 
@@ -35,7 +38,7 @@ function onUpdete() {
 </script>
 
 <template>
-  <div class="flex-1">
+  <div class="flex-1 lg:max-w-2xl">
     <div>
       <pre class="overflow-hidden text-xs max-w-96">{{ userData }}</pre>
       <UForm

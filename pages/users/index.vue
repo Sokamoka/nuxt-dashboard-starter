@@ -102,7 +102,10 @@ async function onEdit(id: string) {
 }
 
 async function onDelete(id: string) {
-  const instance = modal.open();
+  const instance = modal.open({
+    title: `Are you sure you want to delete user?`,
+    message: "This action cannot be undone.",
+  });
   if (!(await instance.result)) return;
   console.log(id);
 }
