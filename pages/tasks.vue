@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { DBTasks } from '~/shared/lib/tasks';
 
+// await new Promise((resolve) => setTimeout(resolve, 2000))
 const { data: tasks } = await useValidateFetch<DBTasks[]>('/api/tasks')
-// const data = ref([{ id: 0, name: 'a'},{ id: 1, name: 'b'}])
 </script>
 
 <template>

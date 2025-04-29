@@ -1,3 +1,6 @@
+import memory from "unstorage/drivers/memory";
+import fs from "unstorage/drivers/fs";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
@@ -5,7 +8,12 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   devtools: { enabled: true },
-  modules: ["nuxt-auth-utils", "@nuxt/ui", "@vueuse/nuxt", "nuxt-authorization"],
+  modules: [
+    "nuxt-auth-utils",
+    "@nuxt/ui",
+    "@vueuse/nuxt",
+    "nuxt-authorization",
+  ],
 
   css: ["~/assets/css/main.css"],
 
@@ -16,9 +24,26 @@ export default defineNuxtConfig({
 
   nitro: {
     experimental: {
-      websocket: true
-    }
-  }
+      websocket: true,
+    },
+    storage: {
+      // db: {
+      //   driver: 'overlay',
+      //   layers: [memory(), fs({ base: "./.data/db" })]
+      // }
+      db: {
+        driver: "overlay",
+        layers: [
+          { name: "memory", driver: memory() },
+          { name: "fs", driver: fs({ base: "./.data/db" }) },
+        ],
+      },
+      // db: {
+      //   driver: 'fs',
+      //   base: './.data/db'
+      // }
+    },
+  },
 
   // runtimeConfig: {
   //   session: {

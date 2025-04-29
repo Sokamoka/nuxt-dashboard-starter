@@ -1,6 +1,7 @@
 import * as v from "valibot";
 import { useValidatedBody } from "~/composables/useValidateBody";
 import { findUserByEmail } from "~/shared/lib/users";
+import { createSession } from "~/utils/auth";
 
 export default defineEventHandler(async (event) => {
    const { email, password } = await useValidatedBody(
@@ -30,6 +31,14 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  const result = await createSession(email)
+  if (!result) {
+    throw createError({
+      statusCode: 401,
+      message: "Bad credentials",
+    });
+  }
+
   await setUserSession(
     event,
     {
@@ -38,6 +47,7 @@ export default defineEventHandler(async (event) => {
         name: userWithPassword.name,
         roles: userWithPassword.roles,
       },
+      token: result.sessionToken,
     },
     {
       maxAge: 3600,
