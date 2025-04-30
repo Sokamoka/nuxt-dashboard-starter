@@ -1,5 +1,5 @@
 import { listProfile } from "~/shared/abilities";
-import { findUserById, type User } from "~/shared/lib/users";
+import { findUserById, type DBUser } from "~/shared/lib/users";
 
 export default eventHandler(async (event) => {
   const {
@@ -8,9 +8,7 @@ export default eventHandler(async (event) => {
 
   await authorize(event, listProfile);
 
-  // console.log(user)
-
   const userData = await findUserById(id);
 
-  return userData as User;
+  return userData as DBUser;
 });

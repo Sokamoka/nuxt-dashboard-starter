@@ -3,7 +3,6 @@ export default defineNitroPlugin((nitroApp) => {
     event.context.$authorization = {
       resolveServerUser: async () => {
         const session = await getUserSession(event)
-        console.log('resolveServerUser', session)
         return session.user ?? null
       },
     }

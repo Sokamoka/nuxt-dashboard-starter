@@ -1,19 +1,15 @@
-import type { UseFetchOptions } from "#app";
-
-export function useValidateFetch<T>(url: string, options?: UseFetchOptions) {
+export function useValidateFetch<T>(url: string, options?: unknown) {
   return useFetch<T>(url, {
     async onRequest({ options }) {
-      // console.log("[fetch request]", request, options);
-
-      const { csrfToken } = await $fetch('/api/csrf-token')
-      options.headers.set("X-CSRF-Token", csrfToken || "");
+      const data = await useRequestFetch()("/api/csrf-token");
+      options.headers.set("X-CSRF-Token", (data.csrfToken as string) ?? "");
     },
     async onResponseError({ response }) {
-      console.log(response.status);
+      console.info(response);
       if (response.status === 401) {
         return navigateTo("/login");
       }
     },
-    ...options,
+    ...(options || {}),
   });
 }

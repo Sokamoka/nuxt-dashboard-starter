@@ -2,14 +2,18 @@
 import type { DBTasks } from "~/shared/lib/tasks";
 
 // await new Promise((resolve) => setTimeout(resolve, 2000))
-
-const { status, data: tasks } = await useValidateFetch<DBTasks[]>("/api/tasks");
+const {
+  status,
+  data: tasks,
+  error,
+} = await useValidateFetch<DBTasks[]>("/api/tasks");
 </script>
 
 <template>
   <div>
     <MainTitle title="Tasks" />
     {{ status }}
+    {{ error }}
     <div class="mb-4">
       <UButton>Button</UButton>
     </div>

@@ -1,8 +1,8 @@
 <script setup>
-// const { data: usersC1 } = useNuxtData('users-1')
-// console.log(usersC1.value)
-const { data: users1, error } = await useAsyncData('users-1', () => $fetch('/api/users'))
 
+const { data: users1, error } = await useAsyncData("users", () =>
+  useRequestFetch()("/api/users")
+);
 </script>
 <template>
   <div>
