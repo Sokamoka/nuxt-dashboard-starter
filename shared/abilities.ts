@@ -2,7 +2,7 @@ import { defineAbility } from "nuxt-authorization/utils";
 import type { DBUser } from "./lib/users";
 
 export const listUsers = defineAbility((user: DBUser, roles: Roles[]) => {
-  return isAllowed(roles, user.roles);
+  return isAllowed(user.roles, roles);
 });
 
 export const listProfile = defineAbility(() => true);

@@ -2,6 +2,7 @@ import type { H3Event } from "h3";
 import cryptoRandomString from "crypto-random-string";
 import jsonwebtoken from "jsonwebtoken";
 import { findUserByEmail, findUserById, updateOne } from "~/shared/lib/users";
+import type { UserSessionRequired } from "#auth-utils";
 
 export async function createSession(
   email: string
@@ -48,7 +49,7 @@ export async function verifyCsrfToken(userId: string, jwt: string) {
   }
 }
 
-export async function verifyCsrf(event: H3Event, session: { userId: string }) {
+export async function verifySessionCredentials(event: H3Event, session: UserSessionRequired) {
   const csrfToken = await getRequestHeader(event, "X-CSRF-Token");
   if (typeof csrfToken !== "string") throw createError({ status: 401 });
   if (!(await verifyCsrfToken(session.user.id, csrfToken)))

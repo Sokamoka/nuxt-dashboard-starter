@@ -4,16 +4,16 @@ import { findUserByEmail } from "~/shared/lib/users";
 import { createSession } from "~/utils/auth";
 
 export default defineEventHandler(async (event) => {
-   const { email, password } = await useValidatedBody(
-      event,
-      v.object({
-        email: v.pipe(v.string(), v.email("Invalid email")),
-        password: v.pipe(
-          v.string(),
-          v.minLength(4, "Must be at least 4 characters")
-        ),
-      })
-    );
+  const { email, password } = await useValidatedBody(
+    event,
+    v.object({
+      email: v.pipe(v.string(), v.email("Invalid email")),
+      password: v.pipe(
+        v.string(),
+        v.minLength(4, "Must be at least 4 characters")
+      ),
+    })
+  );
 
   const userWithPassword = await findUserByEmail(email);
   if (!userWithPassword) {
@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const result = await createSession(email)
+  const result = await createSession(email);
   if (!result) {
     throw createError({
       statusCode: 401,
@@ -47,7 +47,9 @@ export default defineEventHandler(async (event) => {
         name: userWithPassword.name,
         roles: userWithPassword.roles,
       },
+      userId: userWithPassword.id,
       token: result.sessionToken,
+      loggedInAt: +new Date(),
     },
     {
       maxAge: 3600,

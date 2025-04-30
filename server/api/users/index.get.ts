@@ -1,15 +1,21 @@
-import { listUsers } from "~/shared/abilities"
-import { findAllUsers} from "~/shared/lib/users"
+// import { listUsers } from "~/shared/abilities";
+import { findAllUsers } from "~/shared/lib/users";
+// import { getSession} from 'h3';
 
 export default eventHandler(async (event) => {
-  // const { user } = await requireUserSession(event)
+  try {
+    const userSession = await getUserSession(event)
+    console.log(userSession);
 
-  await authorize(event, listUsers, [Roles.Admin])
+    // await requireUserSession(event)
 
-  // console.log(user)
+    // await authorize(event, listUsers, [Roles.Admin]);
 
-  // List todos for the current user
-  const users = await findAllUsers()
+    const users = await findAllUsers();
 
-  return users
-})
+    return users;
+  } catch (error) {
+    console.error(error);
+    return sendNoContent(event)
+  }
+});

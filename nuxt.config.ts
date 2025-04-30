@@ -1,6 +1,3 @@
-import memory from "unstorage/drivers/memory";
-import fs from "unstorage/drivers/fs";
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
@@ -32,22 +29,16 @@ export default defineNuxtConfig({
       //   layers: [memory(), fs({ base: "./.data/db" })]
       // }
       db: {
-        driver: "overlay",
-        layers: [
-          { name: "memory", driver: memory() },
-          { name: "fs", driver: fs({ base: "./.data/db" }) },
-        ],
-      },
-      // db: {
-      //   driver: 'fs',
-      //   base: './.data/db'
-      // }
+        driver: 'fs',
+        base: './.data/db'
+      }
     },
   },
 
-  // runtimeConfig: {
-  //   session: {
-  //     maxAge: 0,
-  //   }
-  // }
+  runtimeConfig: {
+    session: {
+      name: 'nuxt-dashboard-session',
+      password: process.env.NUXT_SESSION_PASSWORD || '',
+    }
+  }
 });
