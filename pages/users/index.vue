@@ -14,7 +14,7 @@ definePageMeta({
 const table = useTemplateRef("table");
 const modal = useConfirmModal();
 
-const { data: users } = await useValidateFetch<DBUser[]>("/api/users");
+const { data: users, error } = await useValidateFetch<DBUser[]>("/api/users");
 
 const columns = [
   {
@@ -139,6 +139,8 @@ async function onDeleteSelected() {
       <UIcon name="i-lucide-lightbulb" class="size-3 mr-2" />I can delete and
       edit users.
     </Can>
+
+    <pre>{{ error }}</pre>
 
     <div class="pb-3">
       <UButton

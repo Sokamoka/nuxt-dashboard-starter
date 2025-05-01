@@ -11,29 +11,36 @@ const schema = v.object({
 });
 
 const { fetch } = useUserSession();
-const toast = useToast()
+const toast = useToast();
 
-const { data: userData } = await useValidateFetch<DBUser>('/api/settings/profile');
+const { data: userData } = await useValidateFetch<DBUser>(
+  "/api/settings/profile"
+);
 
 const credentials = reactive({
   name: userData.value?.name ?? "",
   email: userData.value?.email ?? "",
 });
 
-function onUpdete() {
-  $fetch("/api/settings/profile", {
-    method: "POST",
-    body: credentials,
-  })
-    .then(async () => {
-      toast.add({
-        title: "Success",
-        description: "Your action was completed successfully.",
-        color: "success",
-      });
-      fetch();
-    })
-    .catch(() => alert("Bad credentials"));
+async function onUpdete() {
+  try {
+    await useValidateFetch<DBUser>("/api/settings/profile", {
+      method: "POST",
+      body: credentials,
+    });
+    toast.add({
+      title: "Success",
+      description: "Your action was completed successfully.",
+      color: "success",
+    });
+    fetch();
+  } catch {
+    toast.add({
+      title: "Error",
+      description: "Something went wrong.",
+      color: "error",
+    });
+  }
 }
 </script>
 

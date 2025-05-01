@@ -26,7 +26,7 @@ export async function getCsrfToken(userId: string) {
   const secret = process.env.NUXT_SESSION_PASSWORD;
   if (secret && secret.length === 32 && result) {
     return jsonwebtoken.sign({ csrfToken: result.csrfToken }, secret, {
-      expiresIn: 1,
+      expiresIn: 30,
     });
   }
 }

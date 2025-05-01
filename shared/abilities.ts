@@ -8,8 +8,8 @@ export const listUsers = defineAbility((user: DBUser, roles: Roles[]) => {
 
 export const listProfile = defineAbility(() => true);
 
-// export const editProfile = defineAbility((user: User, product: Product) => {
-//   return user.id === product.ownerId
+// export const editProfile = defineAbility((userId: string, product: Product) => {
+//   return userId === product.ownerId
 // })
 
 export const listTasks = defineAbility(() => true);

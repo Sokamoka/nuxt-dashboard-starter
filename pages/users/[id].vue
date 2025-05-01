@@ -11,11 +11,14 @@ const schema = v.object({
   roles: v.pipe(v.array(v.string()), v.nonEmpty("Please select a role")),
 });
 
-const route = useRoute()
+const route = useRoute();
 
 const { data: userData } = await useValidateFetch<DBUser>(
   `/api/users/${route.params.id}`
 );
+const userName = computed(() => {
+  return new Map().set(route.params.id, userData.value?.name);
+});
 
 const RolesItems = Object.values(Roles);
 
@@ -29,7 +32,11 @@ function onUpdete() {}
 </script>
 <template>
   <div>
-    <MainTitle title="User Administration" subtitle="You can edit user" />
+    <MainTitle
+      title="User Administration"
+      subtitle="You can edit user"
+      :replacement="userName"
+    />
 
     <UForm
       :schema="schema"

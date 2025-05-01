@@ -4,7 +4,7 @@ import { verifySessionCredentials } from "~/utils/auth";
 
 export default eventHandler(async (event) => {
   try {
-    const userSession =  await requireUserSession(event)
+    const userSession = await requireUserSession(event);
     await verifySessionCredentials(event, userSession);
     await authorize(event, listUsers, [Roles.Admin]);
 
@@ -12,7 +12,18 @@ export default eventHandler(async (event) => {
 
     return users;
   } catch (error) {
-    console.error(error);
-    return createError({ statusCode: 401})
+    // console.error(error);
+    // console.log(error.message);
+    // console.log(error.statusCode);
+    if (error.statusCode === 401 || error.statusCode === 403)
+      return createError({
+        statusCode: 401,
+        statusText: "Unauthorized",
+      });
+    return createError({
+      statusCode: 500,
+      statusText: "Server Error",
+      data: { message: error.message },
+    });
   }
 });
