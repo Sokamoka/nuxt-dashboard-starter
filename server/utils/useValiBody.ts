@@ -9,7 +9,7 @@ type VSchema<TInput, TOutput, TIssue extends v.BaseIssue<unknown>> =
   | v.BaseSchema<TInput, TOutput, TIssue>
   | v.BaseSchemaAsync<TInput, TOutput, TIssue>;
 
-export async function readValidatedBody<
+export default async function useValiBody<
   TInput,
   TOutput,
   TIssue extends v.BaseIssue<unknown>
@@ -24,14 +24,12 @@ export async function readValidatedBody<
     const parsed = await v.parseAsync(schema, body, config);
     return parsed;
   } catch (error) {
-    throw createBadRequest(error);
+    const issues  = error instanceof v.ValiError ? error.issues : [];
+      throw createError({
+        statusCode: DEFAULT_ERROR_STATUS,
+        statusText: DEFAULT_ERROR_MESSAGE,
+        message: issues[0].message || '',
+        data: issues,
+      });
   }
-}
-
-function createBadRequest(error: unknown) {
-  return createError({
-    statusCode: DEFAULT_ERROR_STATUS,
-    statusText: DEFAULT_ERROR_MESSAGE,
-    data: error,
-  });
 }

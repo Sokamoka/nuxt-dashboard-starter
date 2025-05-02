@@ -6,5 +6,11 @@ declare module '#auth-utils' {
     name: string
     roles: Roles[]
   }
+
+  interface UserSession {
+    user: User,
+    token: string,
+    loggedInAt: Date | number,
+  }
 }
 export {}

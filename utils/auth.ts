@@ -49,9 +49,30 @@ export async function verifyCsrfToken(userId: string, jwt: string) {
   }
 }
 
-export async function verifySessionCredentials(event: H3Event, session: UserSessionRequired) {
+export async function verifySession(userId: string, sessionToken: string) {
+  const result = await findUserById(userId);
+
+  return result !== undefined && result.sessionToken === sessionToken;
+}
+
+export async function verifySessionCredentials(
+  event: H3Event,
+  session: UserSessionRequired
+) {
+  if (!await verifySession(session.user.id, session.token)) {
+    throw createError({ status: 401, statusMessage: "Unauthorized" })
+  }
   const csrfToken = await getRequestHeader(event, "X-CSRF-Token");
-  if (typeof csrfToken !== "string") throw createError({ status: 401 });
+  if (typeof csrfToken !== "string")
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Unauthorized",
+      message: "The CSRF token is empty or not a string",
+    });
   if (!(await verifyCsrfToken(session.user.id, csrfToken)))
-    throw createError({ status: 401 });
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Unauthorized",
+      message: "The CSRF token is invalid",
+    });
 }

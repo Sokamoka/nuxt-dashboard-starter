@@ -4,20 +4,46 @@ import * as v from "valibot";
 const schema = v.object({
   password: v.pipe(
     v.string(),
-    v.minLength(2, "The name must be 2 or more characters long.")
+    v.minLength(4, "The name must be 4 or more characters long.")
   ),
-  newPassword:v.pipe(
+  newPassword: v.pipe(
     v.string(),
-    v.minLength(2, "The name must be 2 or more characters long.")
+    v.minLength(4, "The name must be 4 or more characters long.")
   ),
 });
+
+const toast = useToast();
 
 const credentials = reactive({
   password: "",
   newPassword: "",
 });
 
-function onUpdete() {}
+async function onUpdete() {
+  try {
+    const { csrfToken } = await useRequestFetch()("/api/csrf-token");
+    await useRequestFetch()("/api/settings/password", {
+      headers: {
+        "X-CSRF-Token": csrfToken || "",
+      },
+      method: "POST",
+      body: credentials,
+    });
+    toast.add({
+      title: "Success",
+      description: "Your action was completed successfully.",
+      color: "success",
+    });
+    credentials.password = "";
+    credentials.newPassword = "";
+  } catch (error) {
+    toast.add({
+      title: "Error",
+      description: error.response?._data.message,
+      color: "error",
+    });
+  }
+}
 </script>
 
 <template>

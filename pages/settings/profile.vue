@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import * as v from "valibot";
 import type { DBUser } from "~/shared/lib/users";
+// import type { H3Error } from 'h3'
 
 const schema = v.object({
   name: v.pipe(
@@ -13,33 +14,72 @@ const schema = v.object({
 const { fetch } = useUserSession();
 const toast = useToast();
 
-const { data: userData } = await useValidateFetch<DBUser>(
-  "/api/settings/profile"
-);
+type AvailableRouterMethod = "GET" | "POST" | "PUT" | "DELETE"; // Define the type
+const method = ref<AvailableRouterMethod>("GET");
 
 const credentials = reactive({
-  name: userData.value?.name ?? "",
-  email: userData.value?.email ?? "",
+  name: "",
+  email: "",
 });
 
+const { data: userData, execute } = await useValidateFetch<DBUser>(
+  "/api/settings/profile",
+  {
+    method,
+    body: computed(() => (method.value === "POST" ? credentials : null)),
+    onSuccess: () => {
+      if (method.value === "GET") return;
+      toast.add({
+        title: "Success",
+        description: "Your action was completed successfully.",
+        color: "success",
+      });
+      fetch();
+    },
+    onError: (error) => {
+      toast.add({
+        title: "Error",
+        description: error?._data.message,
+        color: "error",
+      });
+    },
+  }
+);
+
+credentials.name = userData.value?.name || "";
+credentials.email = userData.value?.email || "";
+
 async function onUpdete() {
+  // const { error } = await useValidateFetch<DBUser>("/api/settings/profile", {
+  //   method: "POST",
+  //   body: credentials,
+  // });
   try {
-    await useValidateFetch<DBUser>("/api/settings/profile", {
-      method: "POST",
-      body: credentials,
-    });
+    // const { csrfToken } = await useRequestFetch()("/api/csrf-token");
+    // await useRequestFetch()("/api/settings/profile", {
+    //   headers: {
+    //     "X-CSRF-Token": csrfToken || ''
+    //   },
+    //   method: "POST",
+    //   body: credentials,
+    // });
+    method.value = "POST";
+    await execute();
     toast.add({
       title: "Success",
       description: "Your action was completed successfully.",
       color: "success",
     });
     fetch();
-  } catch {
+  } catch (error) {
+    // console.log(error.response);
     toast.add({
       title: "Error",
-      description: "Something went wrong.",
+      description: error.response?._data.message,
       color: "error",
     });
+  } finally {
+    method.value = "GET";
   }
 }
 </script>

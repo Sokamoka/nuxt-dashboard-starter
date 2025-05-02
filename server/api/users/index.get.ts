@@ -1,3 +1,4 @@
+import type { H3Error } from "h3";
 import { listUsers } from "~/shared/abilities";
 import { findAllUsers } from "~/shared/lib/users";
 import { verifySessionCredentials } from "~/utils/auth";
@@ -12,18 +13,6 @@ export default eventHandler(async (event) => {
 
     return users;
   } catch (error) {
-    // console.error(error);
-    // console.log(error.message);
-    // console.log(error.statusCode);
-    if (error.statusCode === 401 || error.statusCode === 403)
-      return createError({
-        statusCode: 401,
-        statusText: "Unauthorized",
-      });
-    return createError({
-      statusCode: 500,
-      statusText: "Server Error",
-      data: { message: error.message },
-    });
+    return createError(error as H3Error);
   }
 });
