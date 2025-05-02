@@ -9,15 +9,21 @@ export default function <ResT, DataT = ResT>(
 ) {
   return useFetch(url, {
     async onRequest({ options }) {
-      const data = await useRequestFetch()("/api/csrf-token");
-      options.headers.set("X-CSRF-Token", (data.csrfToken as string) ?? "");
+      try {
+        const data = await useRequestFetch()("/api/csrf-token");
+        options.headers.set("X-CSRF-Token", (data.csrfToken as string) ?? "");
+      } catch (error) {
+        if (error.status === 401) {
+          return navigateTo("/login");
+        }
+      }
     },
     onResponse({ response }) {
-      // console.log('f:', response)
+      // console.log('onResponse:', options)
       options.onSuccess?.(response);
     },
-    async onResponseError({ response }) {
-      console.info(response);
+    onResponseError({ response }) {
+      console.info('onResponseError', response);
       if (response.status === 401) {
         return navigateTo("/login");
       }

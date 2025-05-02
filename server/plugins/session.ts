@@ -7,4 +7,8 @@ export default defineNitroPlugin(() => {
   sessionHooks.hook("clear", (session) => {
     deleteUserSessionTokens(session.user?.id ?? "");
   });
+
+  // nuxtApp.hooks.hook('afterResponse', (e) => {
+  //   console.log('afterResponse:')
+  // })
 });

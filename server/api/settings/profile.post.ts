@@ -4,7 +4,7 @@ import { findUserByEmail, findUserById, updateOne } from "~/shared/lib/users";
 import { verifySessionCredentials } from "~/utils/auth";
 
 const schema = v.object({
-  name: v.pipe(v.string(), v.minLength(20, "Must be at least 2 characters")),
+  name: v.pipe(v.string(), v.minLength(2, "Must be at least 2 characters")),
   email: v.pipe(v.string(), v.email("Invalid email")),
 });
 
@@ -37,6 +37,8 @@ export default defineEventHandler(async (event) => {
       },
       token: userSession.token,
       loggedInAt: +new Date(),
+    }, {
+      maxAge: 15
     });
 
     return { success: true };

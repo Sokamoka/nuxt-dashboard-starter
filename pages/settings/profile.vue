@@ -50,37 +50,38 @@ credentials.name = userData.value?.name || "";
 credentials.email = userData.value?.email || "";
 
 async function onUpdete() {
+  method.value = "POST";
+  await execute();
+  method.value = "GET";
   // const { error } = await useValidateFetch<DBUser>("/api/settings/profile", {
   //   method: "POST",
   //   body: credentials,
   // });
-  try {
-    // const { csrfToken } = await useRequestFetch()("/api/csrf-token");
-    // await useRequestFetch()("/api/settings/profile", {
-    //   headers: {
-    //     "X-CSRF-Token": csrfToken || ''
-    //   },
-    //   method: "POST",
-    //   body: credentials,
-    // });
-    method.value = "POST";
-    await execute();
-    toast.add({
-      title: "Success",
-      description: "Your action was completed successfully.",
-      color: "success",
-    });
-    fetch();
-  } catch (error) {
-    // console.log(error.response);
-    toast.add({
-      title: "Error",
-      description: error.response?._data.message,
-      color: "error",
-    });
-  } finally {
-    method.value = "GET";
-  }
+  // try {
+  // const { csrfToken } = await useRequestFetch()("/api/csrf-token");
+  // await useRequestFetch()("/api/settings/profile", {
+  //   headers: {
+  //     "X-CSRF-Token": csrfToken || ''
+  //   },
+  //   method: "POST",
+  //   body: credentials,
+  // });
+  // toast.add({
+  //   title: "Success",
+  //   description: "Your action was completed successfully.",
+  //   color: "success",
+  // });
+  // fetch();
+  // } catch (error) {
+  // console.log(error.response);
+  // toast.add({
+  //   title: "Error",
+  //   description: error.response?._data.message,
+  //   color: "error",
+  // });
+  // } finally {
+  // method.value = "GET";
+  // }
 }
 </script>
 
