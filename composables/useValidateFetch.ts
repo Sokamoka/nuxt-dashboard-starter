@@ -1,9 +1,9 @@
 import type { UseFetchOptions } from "nuxt/app";
 import type { IFetchError, FetchResponse } from "ofetch";
 
-export default function <ResT, ErrorT>(
+export default function <ResT, ErrorT = unknown>(
   url: string | (() => string),
-  options: UseFetchOptions<ResT> & {
+  options: UseFetchOptions<ResT, ErrorT> & {
     onError?: (response: FetchResponse<ErrorT> | undefined) => void;
     onSuccess?: (response: unknown) => void;
   } = {}
