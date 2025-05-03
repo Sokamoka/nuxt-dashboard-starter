@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
       loggedInAt: +new Date(),
     },
     {
-      maxAge: 3600,
+      maxAge: Number(process.env.NUXT_SESSION_MAX_AGE),
     }
   );
   return { success: true };

@@ -13,17 +13,18 @@ export default function <ResT, DataT = ResT>(
         const data = await useRequestFetch()("/api/csrf-token");
         options.headers.set("X-CSRF-Token", (data.csrfToken as string) ?? "");
       } catch (error) {
-        if (error.status === 401) {
+        if ((error as { status: number }).status === 401) {
           return navigateTo("/login");
         }
       }
     },
     onResponse({ response }) {
+      if (response._data.error) return;
       // console.log('onResponse:', options)
       options.onSuccess?.(response);
     },
     onResponseError({ response }) {
-      console.info('onResponseError', response);
+      // console.info("onResponseError", response);
       if (response.status === 401) {
         return navigateTo("/login");
       }

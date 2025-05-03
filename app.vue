@@ -4,5 +4,6 @@
       <NuxtLoadingIndicator />
       <NuxtPage />
     </NuxtLayout>
+    <SessionExpiredModal />
   </UApp>
 </template>

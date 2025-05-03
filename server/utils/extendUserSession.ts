@@ -17,7 +17,7 @@ export default async function (
       loggedInAt: +new Date(),
     },
     {
-      maxAge: 60*60,
+      maxAge: Number(process.env.NUXT_SESSION_MAX_AGE),
     }
   );
 }

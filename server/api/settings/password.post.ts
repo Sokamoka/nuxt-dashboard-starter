@@ -28,8 +28,8 @@ export default defineEventHandler(async (event) => {
     const verified = await verifyPassword(user.password, password);
     if (!verified) {
       throw createError({
-        statusCode: 401,
-        statusMessage: 'Bad credentials',
+        statusCode: 400,
+        statusMessage: 'Bad Request',
         message: "Password is not correct",
       });
     }

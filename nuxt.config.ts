@@ -29,16 +29,20 @@ export default defineNuxtConfig({
       //   layers: [memory(), fs({ base: "./.data/db" })]
       // }
       db: {
-        driver: 'fs',
-        base: './.data/db'
-      }
+        driver: "fs",
+        base: "./.data/db",
+      },
     },
   },
 
   runtimeConfig: {
     session: {
-      name: 'nuxt-dashboard-session',
-      password: process.env.NUXT_SESSION_PASSWORD || '',
+      name: "nuxt-dashboard-session",
+      password: process.env.NUXT_SESSION_PASSWORD || "",
+      maxAge:  Number(process.env.NUXT_SESSION_MAX_AGE) || 3600,
+    },
+    public: {
+      sessionMaxAge: Number(process.env.NUXT_SESSION_MAX_AGE) || 3600
     }
-  }
+  },
 });

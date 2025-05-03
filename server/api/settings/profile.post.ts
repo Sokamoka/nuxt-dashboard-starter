@@ -37,8 +37,6 @@ export default defineEventHandler(async (event) => {
       },
       token: userSession.token,
       loggedInAt: +new Date(),
-    }, {
-      maxAge: 15
     });
 
     return { success: true };

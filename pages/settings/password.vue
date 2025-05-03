@@ -13,37 +13,61 @@ const schema = v.object({
 });
 
 const toast = useToast();
-// const { fetch } = useUserSession();
+const { fetch } = useUserSession();
 
 const credentials = reactive({
   password: "",
   newPassword: "",
 });
 
-async function onUpdete() {
-  try {
-    const { csrfToken } = await useRequestFetch()("/api/csrf-token");
-    await useRequestFetch()("/api/settings/password", {
-      headers: {
-        "X-CSRF-Token": csrfToken || "",
-      },
-      method: "POST",
-      body: credentials,
-    });
+const { execute } = await useValidateFetch("/api/settings/password", {
+  method: "POST",
+  body: credentials,
+  watch: false,
+  immediate: false,
+  onSuccess: () => {
+    fetch();
     toast.add({
       title: "Success",
       description: "Your action was completed successfully.",
       color: "success",
     });
-    credentials.password = "";
-    credentials.newPassword = "";
-  } catch (error) {
+  },
+  onError: (error) => {
     toast.add({
       title: "Error",
-      description: error.response?._data.message,
+      description: error?._data.message,
       color: "error",
     });
-  }
+  },
+});
+
+async function onUpdete() {
+  console.log("onUpdete");
+  await execute();
+  // try {
+  //   const { csrfToken } = await useRequestFetch()("/api/csrf-token");
+  //   await useRequestFetch()("/api/settings/password", {
+  //     headers: {
+  //       "X-CSRF-Token": csrfToken || "",
+  //     },
+  //     method: "POST",
+  //     body: credentials,
+  //   });
+  //   toast.add({
+  //     title: "Success",
+  //     description: "Your action was completed successfully.",
+  //     color: "success",
+  //   });
+  //   credentials.password = "";
+  //   credentials.newPassword = "";
+  // } catch (error) {
+  //   toast.add({
+  //     title: "Error",
+  //     description: error.response?._data.message,
+  //     color: "error",
+  //   });
+  // }
 }
 </script>
 
