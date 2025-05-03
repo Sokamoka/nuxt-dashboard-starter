@@ -5,7 +5,7 @@ interface Props {
   title: string;
   subtitle?: string;
   hasSeparator?: boolean;
-  replacement?: Ref<Map<string, string>>;
+  replacement?: MaybeRef<Map<string, string>>;
 }
 
 const props = withDefaults(defineProps<Props>(), {

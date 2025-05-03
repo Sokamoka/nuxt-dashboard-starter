@@ -13,8 +13,11 @@ definePageMeta({
 
 const table = useTemplateRef("table");
 const modal = useConfirmModal();
+const { fetch } = useUserSession();
 
-const { data: users, error } = await useValidateFetch<DBUser[]>("/api/users");
+const { data: users, error } = await useValidateFetch<DBUser[]>("/api/users", {
+  onSuccess: fetch,
+});
 
 const columns = [
   {

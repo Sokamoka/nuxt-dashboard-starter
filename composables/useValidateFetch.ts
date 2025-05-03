@@ -1,9 +1,10 @@
 import type { UseFetchOptions } from "nuxt/app";
+import type { IFetchError, FetchResponse } from "ofetch";
 
-export default function <ResT, DataT = ResT>(
+export default function <ResT, ErrorT>(
   url: string | (() => string),
-  options: UseFetchOptions<ResT, DataT> & {
-    onError?: (response: unknown) => void;
+  options: UseFetchOptions<ResT> & {
+    onError?: (response: FetchResponse<ErrorT> | undefined) => void;
     onSuccess?: (response: unknown) => void;
   } = {}
 ) {
@@ -23,15 +24,15 @@ export default function <ResT, DataT = ResT>(
       // console.log('onResponse:', options)
       options.onSuccess?.(response);
     },
-    onResponseError({ response }) {
+    onResponseError({ response }: IFetchError<FetchResponse<ErrorT>>) {
       // console.info("onResponseError", response);
-      if (response.status === 401) {
+      if (response?.status === 401) {
         return navigateTo("/login");
       }
-      if (response.status === 403) {
+      if (response?.status === 403) {
         return navigateTo("/403");
       }
-      options.onError?.(response);
+      options.onError?.(response as FetchResponse<ErrorT> | undefined);
     },
     ...options,
   });

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import * as v from "valibot";
 import type { DBUser } from "~/shared/lib/users";
-// import type { H3Error } from 'h3'
+
+type AvailableRouterMethod = "GET" | "POST" | "PUT" | "DELETE"; // Define the type
 
 const schema = v.object({
   name: v.pipe(
@@ -14,7 +15,6 @@ const schema = v.object({
 const { fetch } = useUserSession();
 const toast = useToast();
 
-type AvailableRouterMethod = "GET" | "POST" | "PUT" | "DELETE"; // Define the type
 const method = ref<AvailableRouterMethod>("GET");
 
 const credentials = reactive({
@@ -22,7 +22,7 @@ const credentials = reactive({
   email: "",
 });
 
-const { data: userData, execute } = await useValidateFetch<DBUser>(
+const { data: userData, execute } = await useValidateFetch<DBUser, {message: string}>(
   "/api/settings/profile",
   {
     method,
@@ -39,7 +39,7 @@ const { data: userData, execute } = await useValidateFetch<DBUser>(
     onError: (error) => {
       toast.add({
         title: "Error",
-        description: error?._data.message,
+        description: error?._data?.message,
         color: "error",
       });
     },
@@ -88,7 +88,6 @@ async function onUpdete() {
 <template>
   <div class="flex-1 lg:max-w-2xl">
     <div>
-      <pre class="overflow-hidden text-xs max-w-96">{{ userData }}</pre>
       <UForm
         :schema="schema"
         :state="credentials"

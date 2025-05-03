@@ -20,7 +20,10 @@ const credentials = reactive({
   newPassword: "",
 });
 
-const { execute } = await useValidateFetch("/api/settings/password", {
+const { execute: onUpdete } = await useValidateFetch<
+  unknown,
+  { message: string }
+>("/api/settings/password", {
   method: "POST",
   body: credentials,
   watch: false,
@@ -36,39 +39,11 @@ const { execute } = await useValidateFetch("/api/settings/password", {
   onError: (error) => {
     toast.add({
       title: "Error",
-      description: error?._data.message,
+      description: error?._data?.message,
       color: "error",
     });
   },
 });
-
-async function onUpdete() {
-  console.log("onUpdete");
-  await execute();
-  // try {
-  //   const { csrfToken } = await useRequestFetch()("/api/csrf-token");
-  //   await useRequestFetch()("/api/settings/password", {
-  //     headers: {
-  //       "X-CSRF-Token": csrfToken || "",
-  //     },
-  //     method: "POST",
-  //     body: credentials,
-  //   });
-  //   toast.add({
-  //     title: "Success",
-  //     description: "Your action was completed successfully.",
-  //     color: "success",
-  //   });
-  //   credentials.password = "";
-  //   credentials.newPassword = "";
-  // } catch (error) {
-  //   toast.add({
-  //     title: "Error",
-  //     description: error.response?._data.message,
-  //     color: "error",
-  //   });
-  // }
-}
 </script>
 
 <template>
@@ -77,7 +52,7 @@ async function onUpdete() {
       :schema="schema"
       :state="credentials"
       class="space-y-4"
-      @submit="onUpdete"
+      @submit="onUpdete()"
     >
       <UFormField label="Password" name="password">
         <UInput v-model="credentials.password" size="xl" class="w-full" />

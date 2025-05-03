@@ -1,13 +1,17 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
+const config = useRuntimeConfig();
 const open = ref(false);
 const interval = ref(config.public.sessionMaxAge * 1000);
 
 const { session, clear } = useUserSession();
 
-const { start } = useTimeoutFn(() => {
-  open.value = true;
-}, interval);
+const { start } = useTimeoutFn(
+  () => {
+    open.value = true;
+  },
+  interval,
+  { immediate: false }
+);
 
 watch(session, (session) => {
   console.log("SESSION-UPDATED", session);
@@ -31,9 +35,7 @@ function onClose() {
   >
     <template #body> Restart </template>
     <template #footer>
-      <div class="flex gap-2">
-        <UButton color="neutral" label="Restart" @click="onClose" />
-      </div>
+      <UButton color="primary" size="xl" label="Restart" @click="onClose" />
     </template>
   </UModal>
 </template>

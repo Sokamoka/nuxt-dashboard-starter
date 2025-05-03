@@ -12,12 +12,16 @@ const schema = v.object({
 });
 
 const route = useRoute();
+const { fetch } = useUserSession();
 
 const { data: userData } = await useValidateFetch<DBUser>(
-  `/api/users/${route.params.id}`
+  `/api/users/${route.params.id}`,
+  {
+    onSuccess: fetch,
+  }
 );
 const userName = computed(() => {
-  return new Map().set(route.params.id, userData.value?.name);
+  return new Map<string, string>().set(String(route.params.id || ''), userData.value?.name ?? '');
 });
 
 const RolesItems = Object.values(Roles);
