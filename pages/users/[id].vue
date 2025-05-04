@@ -30,13 +30,13 @@ const { data: userData, execute } = await useValidateFetch<DBUser, ErrorData>(
     method,
     body: computed(() => (method.value === "post" ? credentials : null)),
     onSuccess: () => {
+      fetch();
       if (method.value === "get") return;
       toast.add({
         title: "Success",
         description: "Your action was completed successfully.",
         color: "success",
       });
-      fetch();
     },
     onError: (error) => {
       toast.add({

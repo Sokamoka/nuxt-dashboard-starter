@@ -29,13 +29,13 @@ const {
   method,
   body: deletePayload,
   onSuccess: () => {
+    fetch();
     if (method.value === "get") return;
     toast.add({
       title: "Success",
       description: "Your action was completed successfully.",
       color: "success",
     });
-    fetch();
   },
 });
 

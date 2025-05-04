@@ -1,5 +1,4 @@
 import type { H3Error } from "h3";
-// import extendUserSession from "~/server/utils/extendUserSession";
 import { listUsers } from "~/shared/abilities";
 import { findAllUsers } from "~/shared/lib/users";
 import { verifySessionCredentials } from "~/utils/auth";

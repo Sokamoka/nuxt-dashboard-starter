@@ -1,12 +1,24 @@
 <script lang="ts" setup>
 import type { DBTasks } from "~/shared/lib/tasks";
 
-// await new Promise((resolve) => setTimeout(resolve, 2000))
+const ITEM_PER_PAGE = 10;
+
+interface TaskResponse {
+  total: number;
+  rows: DBTasks[];
+}
+
+const page = ref(1);
+
+const query = computed(() => ({ skip: (page.value - 1) * ITEM_PER_PAGE, limit: ITEM_PER_PAGE }));
+
 const {
   status,
   data: tasks,
   error,
-} = await useValidateFetch<DBTasks[]>("/api/tasks");
+} = await useValidateFetch<TaskResponse>("/api/tasks", {
+  query,
+});
 </script>
 
 <template>
@@ -18,7 +30,8 @@ const {
       <UButton>Button</UButton>
     </div>
     <UCard :ui="{ body: 'p-0 sm:p-0' }">
-      <UTable :data="tasks" class="flex-1" />
+      <UTable :data="tasks?.rows" class="flex-1" />
     </UCard>
+    <UPagination v-model:page="page" :total="tasks?.total" class="my-3" />
   </div>
 </template>
