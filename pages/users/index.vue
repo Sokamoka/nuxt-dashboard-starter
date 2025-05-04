@@ -25,7 +25,7 @@ const {
   data: users,
   error,
   execute,
-} = await useValidateFetch<DBUser[]>("/api/users", {
+} = await useValidateFetch<DBUser[], ErrorData>("/api/users", {
   method,
   body: deletePayload,
   onSuccess: () => {

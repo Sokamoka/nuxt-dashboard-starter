@@ -24,7 +24,7 @@ const credentials = reactive<Partial<DBUser>>({
   roles: [],
 });
 
-const { data: userData, execute } = await useValidateFetch<DBUser>(
+const { data: userData, execute } = await useValidateFetch<DBUser, ErrorData>(
   `/api/users/${route.params.id}`,
   {
     method,

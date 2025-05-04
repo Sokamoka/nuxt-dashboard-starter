@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import * as v from "valibot";
 
+interface PasswordResponse {
+  success: boolean;
+}
+
 const schema = v.object({
   password: v.pipe(
     v.string(),
@@ -21,8 +25,8 @@ const credentials = reactive({
 });
 
 const { execute: onUpdete } = await useValidateFetch<
-  unknown,
-  { message: string }
+  PasswordResponse,
+  ErrorData
 >("/api/settings/password", {
   method: "POST",
   body: credentials,

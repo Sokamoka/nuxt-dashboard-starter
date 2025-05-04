@@ -14,7 +14,7 @@
     "@nuxt/ui": "^3.1.0",
     "crypto-random-string": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
-    "nuxt": "^3.16.2",
+    "nuxt": "^3.17.1",
     "nuxt-auth-utils": "0.5.16",
     "nuxt-authorization": "^0.3.3",
     "valibot": "^1.0.0",
