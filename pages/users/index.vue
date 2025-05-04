@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { listUsers } from "~/shared/abilities";
 import type { DBUser } from "~/shared/lib/users";
+import type { TableColumn } from "@nuxt/ui";
+import type { AvailableRouterMethod } from "nitropack";
 
 const UCheckbox = resolveComponent("UCheckbox");
 const UButton = resolveComponent("UButton");
@@ -13,13 +15,31 @@ definePageMeta({
 
 const table = useTemplateRef("table");
 const modal = useConfirmModal();
+const toast = useToast();
 const { fetch } = useUserSession();
 
-const { data: users, error } = await useValidateFetch<DBUser[]>("/api/users", {
-  onSuccess: fetch,
+const method = ref<AvailableRouterMethod<string>>("get");
+const deletePayload = shallowRef<string[] | null>(null);
+
+const {
+  data: users,
+  error,
+  execute,
+} = await useValidateFetch<DBUser[]>("/api/users", {
+  method,
+  body: deletePayload,
+  onSuccess: () => {
+    if (method.value === "get") return;
+    toast.add({
+      title: "Success",
+      description: "Your action was completed successfully.",
+      color: "success",
+    });
+    fetch();
+  },
 });
 
-const columns = [
+const columns: TableColumn<DBUser>[] = [
   {
     id: "select",
     header: ({ table }) =>
@@ -51,7 +71,7 @@ const columns = [
     accessorKey: "roles",
     header: "Roles",
     cell: ({ row }) => {
-      const roles = row.getValue("roles");
+      const roles: DBUser["roles"] = row.getValue("roles");
       return roles.map((item) => {
         const color = {
           ADMIN: "error" as const,
@@ -111,6 +131,7 @@ async function onDelete(id: string) {
   });
   if (!(await instance.result)) return;
   console.log(id);
+  deleteService([id]);
 }
 
 async function onDeleteSelected() {
@@ -120,8 +141,15 @@ async function onDeleteSelected() {
     message: "This action cannot be undone.",
   });
   if (!(await instance.result)) return;
-  const keys = rows.map((row) => (row.original as DBUser).id);
-  console.log(keys);
+  const ids = rows.map((row) => (row.original as DBUser).id);
+  console.log(ids);
+  deleteService(ids);
+}
+
+function deleteService(keys: string[]) {
+  method.value = "delete";
+  deletePayload.value = keys;
+  execute();
 }
 </script>
 

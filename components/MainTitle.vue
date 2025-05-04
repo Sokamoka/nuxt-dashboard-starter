@@ -17,8 +17,9 @@ const props = withDefaults(defineProps<Props>(), {
 const route = useRoute();
 
 const items = computed<BreadcrumbItem[]>(() => {
-  const [_, __, ...splitted] = route.fullPath.split("/");
+  const [_, ...splitted] = route.fullPath.split("/");
   const rest = splitted.map((routeName) => ({
+    ...(routeName !== "settings" && { to: `/${routeName}` }),
     label: toValue(props.replacement).has(routeName)
       ? toValue(props.replacement).get(routeName)
       : routeName,

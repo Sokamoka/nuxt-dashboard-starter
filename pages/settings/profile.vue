@@ -22,29 +22,29 @@ const credentials = reactive({
   email: "",
 });
 
-const { data: userData, execute } = await useValidateFetch<DBUser, {message: string}>(
-  "/api/settings/profile",
-  {
-    method,
-    body: computed(() => (method.value === "POST" ? credentials : null)),
-    onSuccess: () => {
-      if (method.value === "GET") return;
-      toast.add({
-        title: "Success",
-        description: "Your action was completed successfully.",
-        color: "success",
-      });
-      fetch();
-    },
-    onError: (error) => {
-      toast.add({
-        title: "Error",
-        description: error?._data?.message,
-        color: "error",
-      });
-    },
-  }
-);
+const { data: userData, execute } = await useValidateFetch<
+  DBUser,
+  { message: string }
+>("/api/settings/profile", {
+  method,
+  body: computed(() => (method.value === "POST" ? credentials : null)),
+  onSuccess: () => {
+    if (method.value === "GET") return;
+    toast.add({
+      title: "Success",
+      description: "Your action was completed successfully.",
+      color: "success",
+    });
+    fetch();
+  },
+  onError: (error) => {
+    toast.add({
+      title: "Error",
+      description: error?._data?.message,
+      color: "error",
+    });
+  },
+});
 
 credentials.name = userData.value?.name || "";
 credentials.email = userData.value?.email || "";
